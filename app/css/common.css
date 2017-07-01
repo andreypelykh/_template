@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 16px "Open Sans";
+  background: #000;
+  color: #fff;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9yZXNldC5zYXNzIiwiY29tbW9uLnNhc3MiLCJfdmFyaWFibGVzLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQyx1QkFBc0I7Q0FBSTs7QUNHM0I7RUFDQyx1QkNMaUI7RURNakIsaUJBQWdCO0VBQ2hCLFlBQVc7Q0FBSSIsImZpbGUiOiJjb21tb24uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XG5cdGJveC1zaXppbmc6IGJvcmRlci1ib3g7IH1cbiIsIkBpbXBvcnQgJ3ZhcmlhYmxlcyc7XG5AaW1wb3J0ICdtaXhpbnMnO1xuQGltcG9ydCAncmVzZXQnO1xuXG5ib2R5IHtcblx0Zm9udDogJGZvbnQtc2l6ZSAkZm9udDtcblx0YmFja2dyb3VuZDogIzAwMDtcblx0Y29sb3I6ICNmZmY7IH1cbiIsIiRmb250OiAnT3BlbiBTYW5zJztcbiRmb250LXNpemU6IDE2cHg7XG4iXX0= */
