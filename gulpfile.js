@@ -44,7 +44,7 @@ gulp.task('sass', function () {
 	autoprefixer({browsers: ['last 4 version']})
 	];
 
-	gulp.src('app/sass/**/*.(sass|scss)')
+	gulp.src('app/sass/**/*.sass')
 	.pipe(sourcemaps.init())
 	.pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
 	.pipe(postcss(processors))
@@ -64,7 +64,7 @@ gulp.task('html', function () {
 
 //watch
 gulp.task('watch', function () {
-	gulp.watch('app/sass/**/*.(sass|scss)', ['sass']);
+	gulp.watch('app/sass/**/*.sass', ['sass']);
 	gulp.watch('app/*.html', ['html'])
 })
 
