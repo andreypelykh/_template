@@ -6,16 +6,18 @@ autoprefixer = require('autoprefixer'),
 sass = require('gulp-sass'),
 useref = require('gulp-useref'),
 gulpif = require('gulp-if'),
-// uglify = require('gulp-uglify'),
+uglify = require('gulp-uglify'),
 clean = require('gulp-clean'),
 imagemin = require('gulp-imagemin');
+
+var csso = require('gulp-csso');
+var pump = require('pump');
 
 
 var sourcemaps = require('gulp-sourcemaps');
 
 var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
-// npm link gulp gulp-postcss autoprefixer gulp-sass gulp-useref gulp-if gulp-clean browser-sync gulp-imagemin imagemin-jpeg-recompress
 
 var browserSync = require('browser-sync').create();
 
@@ -41,7 +43,8 @@ gulp.task('browser-sync', function() {
 gulp.task('sass', function () {
 	
 	var processors = [
-	autoprefixer({browsers: ['last 4 version']})
+		autoprefixer({browsers: ['last 4 version']}),
+		require('postcss-inline-svg')
 	];
 
 	gulp.src('app/sass/**/*.sass')
@@ -91,14 +94,20 @@ gulp.task('clean', function () {
 })
 
 //distribute
-gulp.task('dist', ['copy-files'], function () {
+gulp.task('dist', ['copy-files'], function (cb) {
 
-	return gulp.src('app/*.html')
-	// .pipe(gulpif('*.js', uglify()))
-	// .pipe(gulpif('*.css', minifyCss()))
-	.pipe(useref())
-	.pipe(gulp.dest('dist'));
+   pump([
+      gulp.src('app/*.html'),
+      useref(),
+      gulpif('*.js', uglify()),
+      gulpif('*.css', csso({
+      	sourceMap: false
+      })),
+      gulp.dest('dist')
+    ],
+    cb
+  );
 })
 
-//dafault
+//default
 gulp.task('default', ['browser-sync', 'html', 'sass', 'watch']);
