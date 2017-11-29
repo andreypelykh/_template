@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+	head
+		title PageTitle
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		
+		//- fonts
+
+
+		//- styles
+		// build:css css/styles.css
+		link(href='css/common.css', rel='stylesheet')
+		// endbuild
+	body
+		.wrapper
+			include ../inc/header
+			|
+			|
+			block main
+			|
+			|
+			include ../inc/footer
+		
+		// build:js js/scripts.js
+		script(src='node_modules/jquery/dist/jquery.min.js')
+		script(src='js/main.js')
+		// endbuild

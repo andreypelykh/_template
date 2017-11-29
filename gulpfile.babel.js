@@ -13,6 +13,10 @@ imagemin = require('gulp-imagemin');
 var csso = require('gulp-csso');
 var pump = require('pump');
 
+const
+	pug = require('gulp-pug'),
+	plumber = require('gulp-plumber');
+
 
 var sourcemaps = require('gulp-sourcemaps');
 
@@ -22,12 +26,12 @@ var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 var browserSync = require('browser-sync').create();
 
 //connect
-gulp.task('connect', function() {
-	connect.server({
-		root: 'app',
-		livereload: true
-	});
-});
+// gulp.task('connect', function() {
+// 	connect.server({
+// 		root: 'app',
+// 		livereload: true
+// 	});
+// });
 
 
 // Static server
@@ -57,18 +61,28 @@ gulp.task('sass', function () {
 
 });
 
+//pug
+gulp.task('pug', function buildHTML() {
+  return gulp.src('app/pug/*.pug')
+  .pipe(plumber())
+  .pipe(pug({
+    pretty: true
+  }))
+  .pipe(gulp.dest('app'))
+  .pipe(browserSync.stream());
+});
 
 //html
-gulp.task('html', function () {
-	gulp.src('app/*.html')
-	.pipe(browserSync.stream());
-})
+// gulp.task('html', function () {
+// 	gulp.src('app/*.html')
+// 	.pipe(browserSync.stream());
+// })
 
 
 //watch
 gulp.task('watch', function () {
 	gulp.watch('app/sass/**/*.sass', ['sass']);
-	gulp.watch('app/*.html', ['html'])
+	gulp.watch('app/pug/**/*.pug', ['pug']);
 })
 
 //copy-files
@@ -94,7 +108,7 @@ gulp.task('clean', function () {
 })
 
 //distribute
-gulp.task('dist', ['copy-files'], function (cb) {
+gulp.task('dist', ['copy-files', 'sass', 'pug'], function (cb) {
 
    pump([
       gulp.src('app/*.html'),
@@ -110,4 +124,4 @@ gulp.task('dist', ['copy-files'], function (cb) {
 })
 
 //default
-gulp.task('default', ['browser-sync', 'html', 'sass', 'watch']);
+gulp.task('default', ['browser-sync', 'pug', 'sass', 'watch']);
