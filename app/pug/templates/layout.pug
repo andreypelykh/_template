@@ -6,17 +6,20 @@ html(lang='en')
 	head
 		title PageTitle
 		meta(name="description" content="")
-		include ../inc/head
+		//- include ../inc/head
+		<?php include ('inc/head.php'); ?>
 	body
 		.wrapper
 			include ../utils/mixins
-			include ../inc/header
+			//- include ../inc/header
+			<?php include ('inc/header.php'); ?>
 			|
 			|
 			block main
 			|
 			|
-			include ../inc/footer
+			//- include ../inc/footer
+			<?php include ('inc/footer.php'); ?>
 		
 		block scripts
 		// build:js js/scripts.js

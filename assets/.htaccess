@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Disable Varnish cache
+#Header set Cache-Control "max-age=0, private, no-cache, no-store, must-revalidate"
