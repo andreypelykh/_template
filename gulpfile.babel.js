@@ -25,24 +25,6 @@ var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
 var browserSync = require('browser-sync').create();
 
-//connect
-// gulp.task('connect', function() {
-// 	connect.server({
-// 		root: 'app',
-// 		livereload: true
-// 	});
-// });
-
-
-// Static server
-gulp.task('browser-sync', function() {
-	browserSync.init({
-		server: {
-			baseDir: "./app"
-		}
-	});
-});
-
 
 gulp.task('sass', function () {
 	
@@ -51,7 +33,7 @@ gulp.task('sass', function () {
 		require('postcss-inline-svg')
 	];
 
-	gulp.src('app/sass/**/*.sass')
+	return gulp.src('app/sass/**/*.sass')
 	.pipe(sourcemaps.init())
 	.pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
 	.pipe(postcss(processors))
@@ -68,38 +50,29 @@ gulp.task('pug', function buildHTML() {
   .pipe(pug({
     pretty: true
   }))
-  .pipe(gulp.dest('app'))
-  .pipe(browserSync.stream());
+  .pipe(gulp.dest('app'));
 });
 
-//html
-// gulp.task('html', function () {
-// 	gulp.src('app/*.html')
-// 	.pipe(browserSync.stream());
-// })
+//pug-watch
+gulp.task('pug-watch', ['pug'], () => browserSync.reload());
 
 
-//watch
-gulp.task('watch', function () {
-	gulp.watch('app/sass/**/*.sass', ['sass']);
-	gulp.watch('app/pug/**/*.pug', ['pug']);
-})
+gulp.task('fonts', ['clean'],
+	() => gulp.src('app/fonts/**/*')
+						.pipe(gulp.dest('dist/fonts'))
+);
+
+gulp.task('images', ['clean'],
+	() => gulp.src('app/img/**/*')
+						.pipe(plumber())
+						.pipe(imagemin([
+							imagemin.gifsicle(), imageminJpegRecompress({min: 60, max: 80}), imagemin.optipng(), imagemin.svgo()
+							]))
+						.pipe(gulp.dest('dist/img'))
+);
 
 //copy-files
-gulp.task('copy-files', ['clean'], function(){
-	gulp.src('app/fonts/**/*')
-	.pipe(gulp.dest('dist/fonts'));
-
-	gulp.src('app/img/**/*')
-	.pipe(imagemin([
-		imagemin.gifsicle(), imageminJpegRecompress({min: 60, max: 80}), imagemin.optipng(), imagemin.svgo()
-		]))
-	.pipe(gulp.dest('dist/img'));
-
-
-
-	
-});
+gulp.task('copy-files', ['fonts', 'images']);
 
 //clean
 gulp.task('clean', function () {
@@ -124,4 +97,13 @@ gulp.task('dist', ['copy-files', 'sass', 'pug'], function (cb) {
 })
 
 //default
-gulp.task('default', ['browser-sync', 'pug', 'sass', 'watch']);
+gulp.task('default', ['pug', 'sass'], () => {
+	browserSync.init({
+		server: {
+			baseDir: "./app"
+		}
+	});
+
+	gulp.watch('app/sass/**/*.sass', ['sass']);
+	gulp.watch('app/pug/**/*.pug', ['pug-watch']);
+});
