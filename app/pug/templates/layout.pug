@@ -1,19 +1,15 @@
+block first-line
+|
+|
 doctype html
 html(lang='en')
 	head
 		title PageTitle
-		meta(charset='utf-8')
-		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-		
-		//- fonts
-
-
-		//- styles
-		// build:css css/styles.css
-		link(href='css/common.css', rel='stylesheet')
-		// endbuild
+		meta(name="description" content="")
+		include ../inc/head
 	body
 		.wrapper
+			include ../utils/mixins
 			include ../inc/header
 			|
 			|
@@ -22,7 +18,9 @@ html(lang='en')
 			|
 			include ../inc/footer
 		
+		block scripts
 		// build:js js/scripts.js
 		script(src='node_modules/jquery/dist/jquery.min.js')
+		//- script(src='node_modules/owl.carousel/dist/owl.carousel.min.js')
 		script(src='js/main.js')
 		// endbuild
