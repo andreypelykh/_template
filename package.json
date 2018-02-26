@@ -4,17 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "cross-env NODE_ENV=production gulp dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "jquery": "^3.2.1"
+  },
   "devDependencies": {
+    "@babel/core": "^7.0.0-beta.34",
+    "@babel/preset-env": "^7.0.0-beta.34",
     "autoprefixer": "^6.7.7",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "browser-sync": "^2.18.8",
+    "cross-env": "^5.1.1",
+    "gifsicle": "^3.0.4",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
     "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.0",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.2.0",
@@ -27,6 +39,10 @@
     "gulp-useref": "^3.1.2",
     "imagemin-jpeg-recompress": "^5.1.0",
     "postcss-inline-svg": "^3.0.0",
-    "pump": "^1.0.2"
+    "pump": "^1.0.2",
+    "run-sequence": "^2.2.0",
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1",
+    "webpack-stream": "^4.0.0"
   }
 }
