@@ -19,3 +19,28 @@ $sm-width: 576px;
 =sm
 	@media (max-width: #{$sm-width - 1px})
 		@content
+
+$browser-context: 16px;
+
+@function rem($pixels)
+	@if (unitless($pixels))
+		$pixels: $pixels * 1px;
+
+	@return $pixels / $browser-context * 1rem
+
+@function em($pixels, $context: $browser-context)
+	@if (unitless($pixels))
+		$pixels: $pixels * 1px;
+
+	@if (unitless($context))
+		$context: $context * 1px;
+
+	@return $pixels / $context * 1em
+
+// retina mixins
+=retina2x
+	@media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi)
+		@content
+=retina3x
+	@media (-webkit-min-device-pixel-ratio: 3) and (min-resolution: 288dpi)
+		@content
